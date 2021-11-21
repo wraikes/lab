@@ -1,0 +1,122 @@
+Ch. 1: ML Framing
+- model categories:
+	- regression & classification
+	- catalog organization: 
+		- provide recommendations / collaborative filtering
+	- knowledge extraction from unstructured data: 
+		- summarize data
+		- pull out pieces of information
+	- generative models
+		- generate new data from inputs (create art; summaries)
+- data availability drives model selection
+- hierarchy of data: labeled; weakly labeled; unlabeled; no data
+- define the mapping of inputs to outputs
+- datasets are iterative
+- list out the challenges to the model:
+	- data availability
+	- model complexity
+	- latency
+	- ease of implementation
+- investigate data and existing research about potential non-ML solutions; get better context of what ML is doing
+- derisk the model by comparing the ideal version to a "strawman baseline". what benefits are had? can we solve with strawman?
+- estimate the impact this project will have prior to starting
+- work thru actual examples of the data by hand; to get a sense of where potential issues could arise
+
+
+Ch. 2: Planning
+- there is large risk in a large product that doesn't produce desired results
+- start w/o ML using heuristics
+- get an MVP up and running asap
+- derisk this by quickly iterating on new ML products from a quick MVP baseline
+- product metrics are the only ones that matter; all else is supportive (ie IF ROAS)
+- use other metrics as guardrails (ie CTR)
+- model metrics must align to product metrics
+- think of speed; data freshness; engineering as constraints
+- build quick end-to-end pipeline
+- inference vs. training pipelines
+
+
+Ch. 3: Pipelines
+- build an inference pipeline first:
+- used to check assumptions and hypotheses
+- serve as scaffolding for iterations
+- look at bottlenecks for improvement
+- product side improvements: is the output useful for users?  
+- model side: are the predictions accurate?
+
+
+Ch. 4: Data
+- explore data quality
+- NULLs, what do they represent & how to handle?
+- is the data representative of the problem; where are the biases?
+- outliers; data accuracy; timestamps
+- histograms & summary statistics help here
+- clustering can help identify broader trends
+- see if labels & variables are grouped in peculiar ways
+- look at how sample sizes improve performance curve (1k vs 10k)
+- investigate uncertain or incorrect model predictions
+
+Ch. 5: Assess
+- 1st model should be simple: quick; understandable; deployable
+- pleasantly surprised usually = bug, such as bad data split
+- make sure data collected prior to response
+- aggregate metrics are shallow (accuracy; mae; log-loss; etc.); look at many
+- granular metrics:
+	- confusion matrix (even for subsets)
+	- ROC/AUC, especially if FPR is fixed
+	- calibration curve
+	- use clustering from exploration: look at correct or incorrect groupings
+- top-k method:
+	- look at cases where model performed well or poorly; why?
+	- look at uncertain cases; what's missing?
+- validation set should mirror training set
+- feature importance:
+	- strong features could be leakage
+	- LIME; shap; permutation importance
+
+Ch. 6: Debug Model
+- make sure pipelines work for a few cases; 
+	- use as tests that they improve with training; want overfitting
+- identifies "silent failures"
+- test for:
+	- data loading: format; data structure; assumptions
+	- data ingestion:
+		- all columns included
+		- no NULLs
+		- right data types
+		- feature distributions; outliers
+	- model outputs:
+		- range; dimensions
+- poor training performance:
+	- incorrect model; poor features; non-representative data
+- poor validation performance:
+	- overfit; impossible tasks; data leakage; bad train/test split 
+
+
+
+Ch. 9: Deployment Considerations
+- batch vs. realtime vs hybrid
+- client side deployments
+
+
+Ch. 10: Deployment Safeguards
+- check inputs to pipeline (distribution shifts; NULLs; etc.)
+- "checks" change functions; "tests" stop training
+	- if check fails, throw error or heuristic
+- check model outputs
+- model failures (that seem right)
+	- only show confident scores
+	- use a model to predict when we'll be wrong as a filter
+- cache results for quick retrieval
+- pair model versions with data sets
+- get user feedback (direct or indirect)
+- use DAGs to keep track of flow
+
+
+Ch. 11: Monitor
+- retrain model if performance dips below threshold
+- anomaly detection
+- use subset to withhold from model to gauge performance
+- don't rely on 1 metric; look across many metrics & segments of data
+
+
