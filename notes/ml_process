@@ -21,19 +21,22 @@ Ch. 1: ML Framing
 - derisk the model by comparing the ideal version to a "strawman baseline". what benefits are had? can we solve with strawman?
 - estimate the impact this project will have prior to starting
 - work thru actual examples of the data by hand; to get a sense of where potential issues could arise
+- identify "impact bottleneck"; where could we provide most value?
 
 
 Ch. 2: Planning
-- there is large risk in a large product that doesn't produce desired results
-- start w/o ML using heuristics
-- get an MVP up and running asap
-- derisk this by quickly iterating on new ML products from a quick MVP baseline
-- product metrics are the only ones that matter; all else is supportive (ie IF ROAS)
-- use other metrics as guardrails (ie CTR)
-- model metrics must align to product metrics
-- think of speed; data freshness; engineering as constraints
-- build quick end-to-end pipeline
-- inference vs. training pipelines
+- there is immense risk in ML model that doesn't satisfy product needs
+- get an MVP end-to-end pipeline up and running asap
+- derisk this by quickly iterating on new ML products with the MVP as a baseline
+- product metrics are the only ones that matter; 
+	- model metrics should align with product metrics
+	- use other metrics as guardrails (ie CTR vs. ROAS)
+- constraints: speed of predictions; data freshness / model updates; and engineering feasibility
+- inference vs. training pipelines:
+	- productionize both;
+	- training pipeline to create and save model
+	- inference to make predictions
+	- model assessment should align with training pipeline
 
 
 Ch. 3: Pipelines
@@ -56,6 +59,7 @@ Ch. 4: Data
 - look at how sample sizes improve performance curve (1k vs 10k)
 - investigate uncertain or incorrect model predictions
 
+
 Ch. 5: Assess
 - 1st model should be simple: quick; understandable; deployable
 - pleasantly surprised usually = bug, such as bad data split
@@ -74,6 +78,7 @@ Ch. 5: Assess
 	- strong features could be leakage
 	- LIME; shap; permutation importance
 
+
 Ch. 6: Debug Model
 - make sure pipelines work for a few cases; 
 	- use as tests that they improve with training; want overfitting
@@ -91,7 +96,6 @@ Ch. 6: Debug Model
 	- incorrect model; poor features; non-representative data
 - poor validation performance:
 	- overfit; impossible tasks; data leakage; bad train/test split 
-
 
 
 Ch. 9: Deployment Considerations
