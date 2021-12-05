@@ -1,0 +1,16 @@
+#################
+######## Ch. 1
+#################
+
+- if it's odd or too good; it's probably inaccurate
+- overhead of running experiment must be small; for more experiments
+- OEC must be accompanied by other metrics (such as not hurting the user experience)
+- terms:
+	- OEC: primary metric; or combination of metrics; or composite of metrics
+	- parameters: experiment variable(s) of interest that influences the OEC
+	- variant: control vs treatment experiences of parameters
+	- randomization unit: the unit for randomizing, user is recommended. needs to be independent
+- accurate randomization is crucial
+- ab tests able to detect unexpected changes
+- 
+

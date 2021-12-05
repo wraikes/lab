@@ -1,0 +1,61 @@
+Ch. 1
+- deep learning exchanges the need to handcraft features for an increase in data and computational requirements.
+
+
+Ch. 2
+- torchvision stores several pretrained architectures
+- torchhub is a method for storing pytorch pretrained architectures in github
+
+Ch. 3
+- deep neural network learns the transformation of one form of data into another
+- everything reduces to a floating point number for data
+- pytorch tensors can leverage GPUs
+- all tensors are stored continguously
+	- storage_offset is starting location of view/index call
+	- stride indicates when dimension increases
+	- size = shape
+- numpy to tensors use float64, need to convert to float32
+- reshaping loses contiguous feature, needs to be re-applied
+
+
+Ch. 4
+- different problems / model architectures require different tensor shapes
+- embeddings are useful for wide tensors (words, high cardinality)
+
+
+Ch. 5
+- NNs are just generalized models that estimate the actual underlying functions
+- steps:
+	- params = tensor w/ requires_grad=True
+	- learning_rate = 0.01
+	- opt = optim.SGD(...)
+	- send params to model for predictions
+	- calculate loss of predictions
+	- opt.zero_grad()
+	- loss.backward()
+	- optimizer.step() until hit threshold
+- autograd can track all operations on tensors for backpropogation
+- normalizing allows consistent gradients across parameters and activation functions to scale properly within range
+
+Ch. 6
+- activation functions:
+	- are what make NNs non-linear
+	- concentrate outputs to a given range (-1 to 1)
+	- can be transformed to mirror any continuous function around x=0 (scaled data)
+	- are nonlinear and differentiable
+	- have sensitive and nonsensitive ranges (to account for uncertainty and certainty in predictions)
+
+
+Ch. 7
+- softmax: transforms vectors to adhere to constraints
+- logsoftmax: good for restricting low probabilities near zero, due to log
+- torchvision transforms holds many dataset transform functions
+- using batches to train SGD (instead of entire sample in epoch) helps avoid local extrema and improve convergence
+- batch size is a hyperparameter
+- 
+
+
+
+Random:
+- DataLoader wraps around Dataset, and provides batching, sampling, shuffling, etc.
+- Dataset contains the data

@@ -41,86 +41,110 @@ Ch. 2: Planning
 
 Ch. 3: Pipelines
 - build an inference pipeline first:
-- used to check assumptions and hypotheses
-- serve as scaffolding for iterations
-- look at bottlenecks for improvement
-- product side improvements: is the output useful for users?  
-- model side: are the predictions accurate?
+	- used to check assumptions and hypotheses from a product perspective
+	- gain an intuitive feel for the product
+	- serves as scaffolding for iterations
+	- looks at bottlenecks for improvement
+- product side improvements: 
+	- is the output useful for users?  
+- model side improvements: 
+	- do the predictions seem off in any way?
 
 
 Ch. 4: Data
-- explore data quality
-- NULLs, what do they represent & how to handle?
-- is the data representative of the problem; where are the biases?
-- outliers; data accuracy; timestamps
-- histograms & summary statistics help here
-- clustering can help identify broader trends
-- see if labels & variables are grouped in peculiar ways
+- data is iterative and part of the product: gathering; prepping & labeling
+- explore data quality:
+	- NULLs, what do they represent & how to handle?
+	- is the data representative of the problem; where are the biases / missing records?
+	- outliers; data accuracy; timestamps
+	- format of data usable?
+- distributions & summary statistics help here
+- clustering/dimension reduction can help identify broader trends
+	- see if labels & variables are grouped in insightful ways
+	- scale data before applying!
+- create features to help models find trends:
+	- use known interactions, especially for smaller datasets
 - look at how sample sizes improve performance curve (1k vs 10k)
-- investigate uncertain or incorrect model predictions
 
 
 Ch. 5: Assess
-- 1st model should be simple: quick; understandable; deployable
+- first model should be simple: 
+	- quick to implement; understandable / easy to debug; deployable (scalable in terms of inference time?)
 - pleasantly surprised usually = bug, such as bad data split
-- make sure data collected prior to response
-- aggregate metrics are shallow (accuracy; mae; log-loss; etc.); look at many
+- ensure validation / test sets reflect real life implementation
+- make sure data collected prior to response (avoid data leakage at all costs)
+- aggregate metrics are shallow, and don't provide insight on how to improve
 - granular metrics:
 	- confusion matrix (even for subsets)
-	- ROC/AUC, especially if FPR is fixed
+	- ROC/AUC, especially if certain FPR is required
 	- calibration curve
 	- use clustering from exploration: look at correct or incorrect groupings
 - top-k method:
 	- look at cases where model performed well or poorly; why?
 	- look at uncertain cases; what's missing?
+- most models can be represented as classification (right vs. wrong predictions)
 - validation set should mirror training set
 - feature importance:
 	- strong features could be leakage
 	- LIME; shap; permutation importance
+- model comparison:
+	- assess across multiple metrics that align with product goal
+	- eg. precision; calibration; inference time & feature understanding
 
 
 Ch. 6: Debug Model
 - make sure pipelines work for a few cases; 
-	- use as tests that they improve with training; want overfitting
-- identifies "silent failures"
+	- want to ensure they can improve with training & overfit
+	- identifies "silent failures"
 - test for:
-	- data loading: format; data structure; assumptions
+	- data loading to expectations: 
+		- format; data structure; assumptions
 	- data ingestion:
 		- all columns included
 		- no NULLs
 		- right data types
 		- feature distributions; outliers
+	- preprocessing:
+		- presence; type & characteristics of data after preprocessing
 	- model outputs:
-		- range; dimensions
+		- range; dimensions; and outputs to specific cases
 - poor training performance:
-	- incorrect model; poor features; non-representative data
+	- small data; incorrect model; poor features; non-representative data
 - poor validation performance:
 	- overfit; impossible tasks; data leakage; bad train/test split 
 
 
 Ch. 9: Deployment Considerations
-- batch vs. realtime vs hybrid
+- batch vs. realtime vs hybrid predictions
 - client side deployments
 
 
 Ch. 10: Deployment Safeguards
-- check inputs to pipeline (distribution shifts; NULLs; etc.)
-- "checks" change functions; "tests" stop training
-	- if check fails, throw error or heuristic
-- check model outputs
+- most common ML pipeline failures:
+	- inputs
+	- model confidence
+	- outputs
+- checks vs. tests:
+	- "checks" are part of pipeline, and change outcomes
+		- difference predictions; or stop model from running
+	- "tests" are part of development, before pipeline deployment
+- model inputs: missing features; data types; distribution shifts; NULLs
+- model outputs: ranges; output make sense? is it useful?
 - model failures (that seem right)
 	- only show confident scores
-	- use a model to predict when we'll be wrong as a filter
+	- use a filtering model to predict when we'll be wrong 
 - cache results for quick retrieval
-- pair model versions with data sets
+- pair model versions with data sets for reproducibility
 - get user feedback (direct or indirect)
 - use DAGs to keep track of flow
 
 
 Ch. 11: Monitor
-- retrain model if performance dips below threshold
-- anomaly detection
-- use subset to withhold from model to gauge performance
-- don't rely on 1 metric; look across many metrics & segments of data
+- retrain model if performance dips below threshold due to "staleness"
+- counterfactual evaluation: use subset to withhold from model to gauge performance
+- don't rely on a signle business metric; look across many metrics & segments of data
 
 
+links:
+https://uchicago-cs.github.io/debugging-guide/
+https://research.google/pubs/pub46555/

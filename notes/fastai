@@ -1,0 +1,126 @@
+
+Lesson 1 - Most of Chapter 1
+Lesson 2 - Finish Chapter 1, Chapter 2
+Lesson 3 - Finish Chapter 2, Start Chapter 4 (Chapter 3 skipped until Lesson 5)
+Lesson 4 - Finish Chapter 4, Start Chapter 5
+Lesson 5 - Chapter 3
+Lesson 6 - Finish Chapter 5, Complete Chapter 6, Start Chapter 8 (Chapter 7 Skip?)
+Lesson 7 - Finish Chapter 8, Complete Chapter 9
+Lesson 8 - Complete Chapter 10 and Chapter 12 (Chapter 11 Skip?)
+
+
+### Ch. 1 
+
+- transforms: 
+	- transforming your dataset (batch via gpu vs. individual)
+- architecture: 
+	- the framework for the model (layers, nodes, resnet34). 
+	- most likely use a predefined architecture.
+- performance: 
+	- metric is for human performance
+	- loss is for model performance
+- pretrained model: 
+	- already trained from similar problem, and we just update based on our own data. 
+	- should use pretrained if possible
+	- remove the last layer (ie. the customized layer), and retrain
+- transfer learning:
+	- using a pretrained model for a different task than originally intended
+	- converting time series, sound, etc. to images and using a CNN
+- epoch:
+	- the number of times you run thru the entire dataset
+- fine_tune:
+	- only train the head in 1 epoch, 'freezing' the other weights
+	- train the entire model in standard fashion
+- segmentation:
+	- a model that recognizes every pixel in an image (can group them all together)
+- test sets:
+	- use careful judgment for selecting validation & test sets, randomized is last resort
+
+
+
+
+
+
+### Ch. 2
+- different sized images:
+	- for each epoch, randomly crop a different set of an image (a type of data augmentation)
+- data augmentation: change appearance of images, without changing meaning
+	- rotation; flipping; warping; brightness/contrast changes, etc.
+	- doesn't increase sample size; happens at each epoch, making each epoch unique but still the "same" data.
+- investigate where the errors are occurring (or where there's most uncertainty)
+	- this is a model driven approach to data cleaning (data can be erroneous)
+- preferred role-out:
+	1) manual process - human checks all predictions
+	2) limited deployment, with supervision
+	3) expansion w/ reporting systems
+- drivetrain:
+	- focus on the levers you can pull for your model for predictions, how to make it "actionable"
+- tabular: deep learning is good for high cardinality
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Ch. 3
+- quick tips:
+	- a system for data / code audits & error correction
+	- look for edge cases where the model doesn't work
+- feedback loops:
+	- model creates a self-fulfilling prophecy: predicts something, it happens, and thru validation makes the model predict scenario even more
+	- meetup using gender to feedback loop women being excluded from tech
+- bias:
+	- the data used to train the model is biased in some fashion (all data is biased, but by how much is variable)
+	- need to recognize, and correct for, this bias (similar to validation & test sets)
+	- error rates for different segments?
+	- is the training data same as live data? 
+		- training on image, but production is video images or nighttime (out-of-domain data)
+	 	- production data changes over time; training data less relevant (domain shift)
+
+
+
+
+
+### Ch. 4
+- broadcasting
+- sgd
+	- process:
+		- meta:
+			- setup a function to describe the data (inputs to outputs)
+			- define the parameters that need to be optimized
+		- steps:
+			- initialize (randomize) a starting point for the parameters
+			- run a prediction
+			- calculate loss of predictions via a loss function
+			- apply sgd to loss function to get gradients
+			- multiply gradients by learning rate (usually between 0.001 and 0.1, but doesn't have to be)
+			- adjust new weights and repeat
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+random links:
+https://lschmiddey.github.io/fastpages_/2021/03/14/tabular-data-variational-autoencoder.html

@@ -1,0 +1,38 @@
+#########
+### GCP
+#########
+
+- 3 main components;
+	- compute enginer: servers
+	- databases: cloud sql (and others)
+	- storage: store any type of file 
+
+- vpc: similar to pvt network 
+	- storage outside vpc?
+
+- managed services: allows to focus on what's needed
+- scalability; elasticity; availability; fault tolerance
+- IAM (identity access mgmt): allow admins to let users access gcp resources
+	- can track moves of users
+	- 
+
+
+
+
+
+
+
+- data
+- src
+	- pull historical data into csv
+	- pull new data for predictions csv
+	- train & save model
+		- optimizer
+		- pipeline
+	- load model
+	- make predictions
+- models
+- tests
+- notes
+- prototypes
+
